@@ -1,13 +1,9 @@
 <template>
-  <div class="faovr">
-    <h2>faovr</h2>
+  <div class="favor">
+    <h2>favor</h2>
   </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

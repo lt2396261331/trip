@@ -1,9 +1,10 @@
 <script setup>
+import TabBar from '@/components/tabbar/index.vue'
 </script>
 
 <template>
-  <h2>App</h2>
-  <router-view></router-view>
+  <router-view />
+  <tab-bar />
 </template>
 
 <style scoped>
