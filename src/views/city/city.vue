@@ -1,22 +1,28 @@
 <template>
   <div class="city top-page">
-    <!-- 1.搜索框 -->
-    <van-search
-      v-model="searchValue"
-      show-action
-      shape="round"
-      placeholder="城市/区域/位置"
-      @cancel="onCancel"
-    />
-    <!-- 2.tab的切换 -->
-    <van-tabs v-model:active="activeName" color="#ff9854">
-      <template v-for="(value, key, index) in allCities">
-        <van-tab :title="value.title" :name="key"></van-tab>
-      </template>
-    </van-tabs>
+    <div class="top">
+      <!-- 1.搜索框 -->
+      <van-search
+        v-model="searchValue"
+        show-action
+        shape="round"
+        placeholder="城市/区域/位置"
+        @cancel="onCancel"
+      />
+      <!-- 2.tab的切换 -->
+      <van-tabs v-model:active="activeName" color="#ff9854">
+        <template v-for="(value, key, index) in allCities">
+          <van-tab :title="value.title" :name="key"></van-tab>
+        </template>
+      </van-tabs>
+    </div>
 
     <!-- 城市列表 -->
-    <city-group />
+    <div class="content">
+      <template v-for="(value, key, index) in allCities">
+        <city-group v-show="activeName === key" :group-data="value" />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -45,9 +51,21 @@ cityStore.fetchAllCitiesData()
 // storeToRefs函数进行结构不会失去响应式
 const { allCities } = storeToRefs(cityStore)
 // 根据选择的标签获取对应的数据
-const cityGroup = computed(() => allCities.value[activeName.value])
-
-
+const cityGroupData = computed(() => {
+  return allCities.value[activeName.value]
+})
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.city {
+  .top {
+    position: relative;
+    z-index: 9;
+  }
+
+  .content {
+    height: calc(100vh - 98px);
+    overflow-y: auto;
+  }
+}
+</style>
