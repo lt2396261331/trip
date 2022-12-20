@@ -20,7 +20,12 @@
         <span class="time">{{ endTime }}</span>
       </div>
     </div>
-    <van-calendar v-model:show="show" type="range" @confirm="handleConfirm" :round="false" />
+    <van-calendar
+      v-model:show="show"
+      type="range"
+      @confirm="handleConfirm"
+      :round="false"
+    />
 
     <!-- 价格/人数 -->
     <div class="section price-counter">
@@ -32,7 +37,16 @@
     <div class="section keyword">关键字/位置/民宿名</div>
 
     <!-- 热门推荐 -->
-    <div class="section hot-suggests"></div>
+    <div class="section hot-suggests">
+      <template v-for="(item, index) in hotSuggests" :key="index">
+        <div
+          class="item"
+          :style="{ background: item.tagText.background.color }"
+        >
+          {{ item.tagText.text }}
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -42,9 +56,11 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import useCityStore from '@/stores/modules/city'
 import { formatMonthDay, getDiffDays } from '@/utils/format_date'
+import useHomeStore from '@/stores/modules/home'
 
 const router = useRouter()
 const { currentCity } = storeToRefs(useCityStore())
+const { hotSuggests } = storeToRefs(useHomeStore())
 
 // 位置/城市
 const cityClick = () => {
@@ -87,6 +103,7 @@ const handleConfirm = date => {
 
     .city {
       flex: 1;
+      font-size: 15px;
     }
     .position {
       width: 74px;
@@ -156,6 +173,19 @@ const handleConfirm = date => {
 
   .price-counter {
     justify-content: space-between;
+  }
+
+  .hot-suggests {
+    padding: 0 20px;
+    height: 52px;
+    .item {
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 14px;
+      margin: 5px;
+      line-height: 1;
+      color: #333;
+    }
   }
 }
 </style>

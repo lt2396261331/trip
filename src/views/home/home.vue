@@ -10,6 +10,12 @@
 
 <script setup>
 import homeSearchBox from './cpns/home-search-box.vue';
+import useHomeStore from '@/stores/modules/home' 
+import { storeToRefs } from 'pinia';
+
+const homeStore = useHomeStore()
+homeStore.fetchHotSuggests()
+
 </script>
 
 <style lang="less" scoped>
