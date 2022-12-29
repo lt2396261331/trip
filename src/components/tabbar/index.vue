@@ -15,11 +15,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router';
 import tabbarData from '@/assets/data/tabbar'
 import { loadImageUrl } from '@/utils/load_assets'
 
 const currentIndex = ref(0)
+const route = useRoute()
+watch(route, (newRoute) => {
+  const index = tabbarData.findIndex(item => item.path === newRoute.path)
+  if (index === -1) return
+  currentIndex.value = index
+})
+
 </script>
 
 <style lang="less" scoped>

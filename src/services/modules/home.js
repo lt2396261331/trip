@@ -4,3 +4,18 @@ export const getHomeSuggests = () => {
     url: '/home/hotSuggests'
   })
 }
+
+export const getCategories = () => {
+  return hxRequest.get({
+    url: '/home/categories'
+  })
+}
+
+export const getHouseList = (page) => {
+  return hxRequest.get({
+    url: 'home/houselist',
+    params: {
+      page
+    }
+  })
+}

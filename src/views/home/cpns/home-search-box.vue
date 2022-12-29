@@ -47,6 +47,11 @@
         </div>
       </template>
     </div>
+
+    <!-- 搜索按钮 -->
+    <div class="section search-btn">
+      <div class="btn" @click="searchBtnClick">开始搜索</div>
+    </div>
   </div>
 </template>
 
@@ -86,6 +91,18 @@ const handleConfirm = date => {
   stayTime.value = getDiffDays(end, start)
 
   show.value = false
+}
+
+// 开始搜索
+const searchBtnClick = () => {
+  router.push({
+    path: "/search",
+    query: {
+      startDate: startTime.value,
+      endDate: endTime.value,
+      currentCity: currentCity.value.cityName
+    }
+  })
 }
 </script>
 
@@ -149,6 +166,7 @@ const handleConfirm = date => {
       text-align: center;
       font-size: 12px;
       color: #666;
+      padding-right: 10px;
     }
 
     .end {
@@ -176,8 +194,8 @@ const handleConfirm = date => {
   }
 
   .hot-suggests {
-    padding: 0 20px;
-    height: 52px;
+    margin: 10px 0;
+    height: auto;
     .item {
       padding: 4px 8px;
       font-size: 12px;
@@ -185,6 +203,21 @@ const handleConfirm = date => {
       margin: 5px;
       line-height: 1;
       color: #333;
+    }
+  }
+
+  .search-btn {
+    .btn {
+      width: 342px;
+      height: 38px;
+      max-height: 50px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 38px;
+      text-align: center;
+      border-radius: 20px;
+      color: #fff;
+      background-image: var(--theme-linear-gradient);
     }
   }
 }
